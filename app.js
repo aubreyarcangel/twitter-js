@@ -3,6 +3,7 @@ const app = express();
 const nunjucks = require('nunjucks');
 const routes = require('./routes');
 const path = require('path');
+const router = express.Router();
 
 
 app.listen(3000, ()=>{
@@ -39,6 +40,12 @@ app.use('/', (req, res, next)=>{
 // 	{name: 'Hermione'}
 // 	]
 // };
+
+router.get('/users/:name', function(req, res) {
+  var name = req.params.name;
+  var list = tweetBank.find( {name: name} );
+  res.render( 'index', { list: list } );
+});
 
 app.set('view engine', 'html'); // have res.render work with html files
 app.engine('html', nunjucks.render); // when giving html files to res.render, tell it to use nunjucks
