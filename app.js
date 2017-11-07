@@ -11,13 +11,13 @@ app.listen(3000, ()=>{
   console.log('Running on port 3000');
 })
 
-app.use('/', routes);
-
 app.use(bodyParser.urlencoded({extended: false}));
-
 app.use(bodyParser.json());
 
-app.use(function(req, res){
+app.use('/', routes);
+
+
+app.use('/', function(req, res){
   res.setHeader('Content-Type', 'text/plain');
   res.write('you posted: \n');
   res.end(JSON.stringify(req.body, null, 2));
